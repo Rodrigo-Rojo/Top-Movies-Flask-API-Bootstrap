@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block styles %}
+  {{ super() }}
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,700">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+{% endblock %}
+
+{% block title %}My Top 10 Movies{% endblock %}
+
+{% block content %}
+<div class="container">
+
+  <h1 class="heading">Query Movies</h1>
+  <p class="description">These are the query result movies.</p>
+    <a href="{{ url_for('home') }}" class="button">Home</a>
+    <div class="card-group">
+        {% for movie in movies: %}
+  <div class="card" >
+
+    <div class="front" style="background-image: url(https://image.tmdb.org/t/p/w500{{ movie['poster_path'] }});">
+        <p class="large">{{ movie['popularity'] }}</p>
+    </div>
+    <div class="back">
+      <div>
+    <div class="title">{{ movie.original_title }} <span class="release_date">{{ movie['release_date'] }}</span></div>
+        <div class="rating">
+            <label>{{ movie['vote_average'] }}</label>
+          <i class="fas fa-star star"></i>
+        </div>
+        <p class="overview">
+            {{ movie['overview'] }}
+        </p>
+
+          <a href="{{ url_for('add_query', id=movie.id) }}" class="button">Add</a>
+      </div>
+    </div>
+  </div>
+    {% endfor %}
+    </div>
+
+</div>
+
+
+{% endblock %}
